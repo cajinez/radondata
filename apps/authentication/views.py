@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpForm , UpdateProfileForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 
 # Create your views here.
+@login_required(login_url="login/")
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Has cerrado sesión correctamente.")
+    return redirect("login")
 
 def login_view(request):
     form = LoginForm(request.POST or None)
