@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm , UpdateProfileForm
+
+from apps.aulas.models import Aula, Notificacion
+from .forms import LoginForm, PreferenciaNotificacionesForm, SignUpForm , UpdateProfileForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
@@ -77,3 +79,19 @@ def update_profile(request):
     
     context = {"form":form}
     return render(request, "accounts/update_profile.html", context)
+
+@login_required(login_url="/login/")
+def actualizar_preferencia(request):
+    if request.method == 'POST':
+        form = PreferenciaNotificacionesForm(request.POST, usuario=request.user)
+        if form.is_valid():
+            for aula in Aula.objects.all():
+                frecuencia = form.cleaned_data[f'preferencia_{aula.id}']
+                notificacion, created = Notificacion.objects.get_or_create(usuario=request.user, aula=aula)
+                notificacion.frecuencia = frecuencia
+                notificacion.save()
+            return redirect('index')
+    else:
+        form = PreferenciaNotificacionesForm(usuario=request.user)
+    
+    return render(request, 'home/preferences.html', {'form': form})

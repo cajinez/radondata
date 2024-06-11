@@ -28,49 +28,50 @@
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h1>Aula 0</h1>
-                            <div class="card-body pb-0">
-                                <h3 class="text-dark mb-1">{{ concentracion }}</h3>
-                                <span class="text-primary">Concentración de radón (Bq/m3)</span>
-                                <h4 class="mb-4 mt-3"></h4>
-                            </div>
-                                <div id="support-chart"></div>
-                                <div class="card-footer border-0 bg-primary text-white background-pattern-white">
-                                    <div class="row text-center">
-                                        <div class="col">
-                                            <h4 class="m-0 text-white">{{ media }}</h4>
-                                            <span>Media diaria</span>
-                                        </div>
-                                        <div class="col">
-                                            <h4 class="m-0 text-white">15</h4>
-                                            <span>Media semanal</span>
-                                        </div>
-                                        <div class="col">
-                                            <h4 class="m-0 text-white">13</h4>
-                                            <span>Media mensual</span>
-                                        </div>
-                                    </div>
+            <div class="row">
+                {% for aula in aulas %}
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h1>{{ aula.nombre }}</h1>
+                        </div>
+                        <div class="card-body pb-0">
+                            <h3 class="text-dark mb-1">{{ aula.concentracion }}</h3>
+                            <span class="text-primary">Concentración de radón (Bq/m3)</span>
+                            <h4 class="mb-4 mt-3"></h4>
+                        </div>
+                        <div id="support-chart"></div>
+                        <div class="card-footer border-0 bg-primary text-white background-pattern-white">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <h4 class="m-0 text-white">{{ aula.media_diaria }}</h4>
+                                    <span>Media diaria</span>
+                                </div>
+                                <div class="col">
+                                    <h4 class="m-0 text-white">{{ aula.media_semanal }}</h4>
+                                    <span>Media semanal</span>
+                                </div>
+                                <div class="col">
+                                    <h4 class="m-0 text-white">{{ aula.media_mensual }}</h4>
+                                    <span>Media mensual</span>
                                 </div>
                             </div>
-                </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xl-6 col-md-10">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Aula 0</h2>
+                            <h2>{{ aula.nombre }}</h2>
                         </div>
                         <div class="card-body">
                             <div class="row pb-2">
                                 <div class="col-auto m-b-10">
-                                    <h3 class="mb-1">{{ concentracion }}</h3>
+                                    <h3 class="mb-1">{{ aula.concentracion }}</h3>
                                     <span>Concentración actual</span>
                                 </div>
                                 <div class="col-auto m-b-10">
-                                    <h3 class="mb-1">{{ media }}</h3>
+                                    <h3 class="mb-1">{{ aula.media }}</h3>
                                     <span>Media</span>
                                 </div>
                             </div>
@@ -78,6 +79,7 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
             <!-- [ Main Content ] end -->
         </div>

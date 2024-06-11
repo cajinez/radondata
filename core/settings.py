@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home', # Enable the inner home (home)
     'apps.authentication',
-    'django_cleanup.apps.CleanupConfig'
+    'apps.aulas',
+    'django_cleanup.apps.CleanupConfig' #elimina las fotos que no se van a usar de un usuario en concreto
 ]
 
 MIDDLEWARE = [

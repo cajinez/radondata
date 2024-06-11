@@ -9,6 +9,8 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('update-profile/', views.update_profile, name="update-profile"),
     
+    path('actualizar_preferencia/', views.actualizar_preferencia, name='actualizar_preferencia'),
+    
     #Recuperar contraseña
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"),name="reset_password"),
     path('password-reset-sent/', auth_views.PasswordResetDoneView.as_view(template_name="accounts/password_reset_sent.html"),name="password_reset_done"),

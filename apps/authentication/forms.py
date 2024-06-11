@@ -2,6 +2,8 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+
+from apps.aulas.models import Aula, Notificacion
 from .models import CustomUser
 
 class LoginForm(forms.Form):
@@ -110,3 +112,34 @@ class UpdateProfileForm(forms.ModelForm):
         model = CustomUser
         fields = ('first_name','last_name','username', 'email', 'phone','profile_pic')
 
+class NotificacionForm(forms.ModelForm):
+    class Meta:
+        model = Notificacion
+        fields = ['aula', 'preferencia']
+        widgets = {
+            'aula': forms.HiddenInput(),
+        }
+        
+class PreferenciaNotificacionForm(forms.ModelForm):
+    class Meta:
+        model = Notificacion
+        fields = ['preferencia']
+        widgets = {
+            'frecuencia': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PreferenciaNotificacionesForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        usuario = kwargs.pop('usuario')
+        super(PreferenciaNotificacionesForm, self).__init__(*args, **kwargs)
+        aulas = Aula.objects.all()
+        for aula in aulas:
+            self.fields[f'preferencia_{aula.id}'] = forms.ChoiceField(
+                label=f'Preferencia para {aula.nombre}',
+                choices=Notificacion.FRECUENCIA_CHOICES,
+                widget=forms.Select(attrs={'class': 'form-control'}),
+                initial=Notificacion.objects.filter(usuario=usuario, aula=aula).first().frecuencia 
+                if Notificacion.objects.filter(usuario=usuario, aula=aula).exists() 
+                else Notificacion.NO_NOTIFICAR
+            )
+        
