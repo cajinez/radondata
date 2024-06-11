@@ -9,7 +9,7 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('update-profile/', views.update_profile, name="update-profile"),
     
-    path('actualizar_preferencia/', views.actualizar_preferencia, name='actualizar_preferencia'),
+    #path('preferences/', views.preferences, name='preferences'),
     
     #Recuperar contraseña
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"),name="reset_password"),

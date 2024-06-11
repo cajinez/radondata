@@ -14,7 +14,7 @@
                             <h5 class="m-b-10">Actualizar Preferencias de Notificación</h5>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                            <li class="breadcrumb-item">Perfil</a></li>
                             <li class="breadcrumb-item">Actualizar Preferencias</li>
                         </ul>
                     </div>
@@ -22,6 +22,14 @@
             </div>
         </div>
         <div class="row">
+            {% if messages %}
+    				{% for message in messages %}
+        				<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            				{{ message }}
+            				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">	</button>
+						</div>
+    				{% endfor %}
+				{% endif %}
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -39,4 +47,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

@@ -35,7 +35,7 @@ def pages(request):
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
-
+        print(request.path.split('/')[-1])
         load_template = request.path.split('/')[-1]
         
         # Verifica si la ruta es para un archivo de medios
