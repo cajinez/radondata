@@ -19,7 +19,7 @@ def preferences(request):
                 notificacion.save()
             messages.success(request, "¡Su perfil ha sido actualizado correctamente!")    
             return redirect('preferences')
-        else:
-            form = PreferenciaNotificacionesForm(usuario=request.user)
+    else:
+        form = PreferenciaNotificacionesForm(usuario=request.user)
     
     return render(request, 'accounts/preferences.html', {'form': form})
